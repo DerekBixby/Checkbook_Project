@@ -1,55 +1,58 @@
-Main_input = input('Please select an option:')
-Deposit_input = input('How much would you like to desposit?')
-Withdrawal_input = input('How much would you like to withdraw?')
+def deposit(deposit):
+    if os.path.exists(user_data) == True: 
+        with open(user_data, 'r') as f:
+            last_data = f.readlines()[-1]
+            last_data = float(last_data)
+            deposit = float(deposit)
+            new_bal = last_data + deposit
+        with open(user_data, 'a') as f: 
+            f.writelines('\n{}'.format(new_bal))
+    else:
+        pass
+
+def withdraw(withdraw):
+    if os.path.exists(user_data) == True: 
+        with open(user_data, 'r') as f:
+            last_data = f.readlines()[-1]
+            last_data = float(last_data)
+            withdraw = float(withdraw)
+            new_bal = last_data - withdraw
+        with open(user_data, 'a') as f: 
+            f.writelines('\n{}'.format(new_bal))
+    else:
+        pass
+
+def balance():
+    if os.path.exists(user_data) == True:
+        with open (user_data, 'r') as f:
+            last_data = f.readlines()[-1]
+            last_data = float(last_data)
+    return print(last_data) #('balance: ${:0.2f}'.format(last_data))
+
+import os
 
 
-#-----------------
-
-
-options = ['Deposit', 'Withdraw', 'Balance', 'Exit']
-
+user_data = 'value.txt'
 user_input = ''
 
-input_message = "Please select a valid option\n"
-
-for index, item in enumerate(options):
-    input_message = input_message + f'{index+1}) {item}\n'
-input_message = input_message + 'Your choice: '
-
-while user_input not in map(str, range(1, len(options) + 1)):
-    user_input = input(input_message)
-
-print('You picked: ' + options[int(user_input) - 1])
-
-#--------------
-
-user_input = ''
 
 while True: 
     user_input = input(
-        'Please type a number for selection: 1) Deposit | 2) Withdraw | 3) Balance | 4) Exit
+        'Please type a number for selection: 1) Deposit | 2) Withdraw | 3) Balance | 4) Exit\n'
     )
 
     if user_input == '1':
-        Deposit_input = ''
-
-        while True:
-            try: 
-                Deposit_input = float(input('Type positive dollar amount to deposit: '))
-                if Deposit_input >= 0:
-                    print( '${:,.2f}'.format(Deposit_input))
-                    break
- 
-            except ValueError: 
-                Deposit_input = input('That is not a valid dollar amount. Type dollar amount to deposit: ')
+        deposit_input = input('Please enter dollar amount: ')
+        deposit(deposit_input)
         
-    if user_input == '2':
-        Withdrawal_input = ''
-        while True:
-            Withdrawal_input = input('Type dollar amount to withdraw')
+    elif user_input == '2':
+        withdraw_input = input('Please enter dollar amount: ')
+        withdraw(withdraw_input)
+        
+    elif user_input == '3':
+        
+        balance()
 
-    if user_input == '3':
 
-
-    if user_input == '4': 
+    elif user_input == '4': 
         break
